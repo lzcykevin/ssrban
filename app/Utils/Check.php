@@ -69,26 +69,16 @@ class Check
                 if (0 == strcmp($asterisk, $line[0]))
                 {
                         $line = substr($line, (~($len - 1) + 1));
-                        
-			if (false != stristr($bemail, $line))
-                        {
-                                fclose($fh);
-				return false;
-                        }
                 }
                 else if (0 == strcmp($asterisk, $line[-1]))
                 {
                         $line = substr($line, (~$len + 1), ($len - 1));
-
-                        if (false != stristr($bemail, $line))
-                        {
-                                fclose($fh);
-				return false;
-                        }
                 }
-                else if ( 0 == strcmp(($at.$line), $bemail))
+		
+		if (false == (empty($line))
+                && (false != stristr($bemail, $line)))
                 {
-                        fclose($fh);
+			fclose($fh);
 			return false;
                 }
         }
