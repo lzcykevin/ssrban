@@ -254,13 +254,13 @@ class AuthController extends BaseController
             }
 	    
             // aq modified 
-            if (!Check::isNotBanEmail($email)) {
+            if (!Check::isBanEmail($email)) {
                 $res['ret'] = 0;
 		$res['msg'] = "不允许此邮箱注册";
                 return $response->getBody()->write(json_encode($res));
 	    }
             
-	    if (!Check::isNotBanIP($email)) {
+	    if (!Check::isBanIP($email)) {
                 $res['ret'] = 0;
 		$res['msg'] = "不允许此IP注册";
                return $response->getBody()->write(json_encode($res));
@@ -354,13 +354,13 @@ class AuthController extends BaseController
         }
  	
 	// aq modified 
-        if (!Check::isNotBanEmail($email)) {
+        if (!Check::isBanEmail($email)) {
             $res['ret'] = 0;
             $res['msg'] = "不允许此邮箱注册";
             return $response->getBody()->write(json_encode($res));
         }
 	 
-	if (!Check::isNotBanIP()) {
+	if (!Check::isBanIP()) {
             $res['ret'] = 0;
 	    $res['msg'] = "不允许此IP注册";
             return $response->getBody()->write(json_encode($res));
