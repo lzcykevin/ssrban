@@ -15,7 +15,7 @@ class Check
         }
     }
 
-    public static function isNotBanIP()
+    public static function isBanIP()
     {
 	$tfile = "../config/Bip.txt"; 
 	
@@ -42,7 +42,7 @@ class Check
 	return true;
    }
 
-    public static function isNotBanEmail($email)
+    public static function isBanEmail($email)
     {
 	$tfile = "../config/Bemail.txt"; 
 	
