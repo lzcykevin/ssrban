@@ -260,7 +260,13 @@ class AuthController extends BaseController
                 return $response->getBody()->write(json_encode($res));
 	    }
             
-	    if (!Check::isBanIP($email)) {
+	    if (!Check::isBanCidr()) {
+	        $res['ret'] = 0;
+	        $res['msg'] = "不允许此IP注册";
+	        return $response->getBody()->write(json_encode($res));
+	    }
+		
+	    if (!Check::isBanIP()) {
                 $res['ret'] = 0;
 		$res['msg'] = "不允许此IP注册";
                return $response->getBody()->write(json_encode($res));
@@ -359,7 +365,13 @@ class AuthController extends BaseController
             $res['msg'] = "不允许此邮箱注册";
             return $response->getBody()->write(json_encode($res));
         }
-	 
+	    
+	if (!Check::isBanCidr()) {
+            $res['ret'] = 0;
+	    $res['msg'] = "不允许此IP注册";
+            return $response->getBody()->write(json_encode($res));
+	}
+	    
 	if (!Check::isBanIP()) {
             $res['ret'] = 0;
 	    $res['msg'] = "不允许此IP注册";
