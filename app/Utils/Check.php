@@ -14,6 +14,48 @@ class Check
             return false;
         }
     }
+	
+    public static function isNotBanCidr()
+    {
+        $tfile = "../config/Bcidr.txt";
+
+        if ( false == is_file($tfile))
+        {
+            return true;
+        }
+
+        $ipaddr = $_SERVER["REMOTE_ADDR"];
+        $fh = fopen($tfile, "r");
+
+        while (! feof($fh))
+        {
+            $mklen = 32;
+            $line = fgets($fh);
+            $line = str_replace(PHP_EOL, '', $line);
+
+            if ((false == empty($line))
+            && (strpos($line, "/") > 0))
+            {
+                list($line, $mklen) = explode("/", $line);
+                
+		if (( 0 <= $mklen ) && ( $mklen <= 32 ))
+                {
+		    $ip = ip2long($line);
+		    $rip = ip2long($ipaddr);
+		    $rlen = (32 - $mklen);
+
+		    if (($rip >> $rlen) == ($ip >> $rlen))
+		    {
+			fclose($fh);
+			return false;
+		    }
+		}
+	    }
+        }
+
+        fclose($fh);
+        return true;
+   }
 
     public static function isBanIP()
     {
