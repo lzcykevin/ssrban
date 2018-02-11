@@ -15,7 +15,7 @@ class Check
         }
     }
 	
-    public static function isNotBanCidr()
+    public static function isBanCidr()
     {
         $tfile = "../config/Bcidr.txt";
 
